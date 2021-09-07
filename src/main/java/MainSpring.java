@@ -7,7 +7,7 @@ public class MainSpring {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         SignUpService signUpService = context.getBean(SignUpService.class);
-        signUpService.signUp("asadullin.iskander@gmail.com", "123");
+        signUpService.signUp("asadullin.iskander@gmail.com", "2002");
 
         System.out.println("Workflow has been finished!");
     }

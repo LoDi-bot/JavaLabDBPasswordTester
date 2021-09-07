@@ -1,14 +1,9 @@
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import javax.sql.DataSource;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 public class passwordBlackListDBImpl implements PasswordBlackList {
 
@@ -17,24 +12,7 @@ public class passwordBlackListDBImpl implements PasswordBlackList {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public passwordBlackListDBImpl() {
-        Properties properties = new Properties();
-
-        try {
-            properties.load(new FileReader("src/main/resources/application.properties"));
-        } catch (IOException e) {
-            throw new IllegalArgumentException(e);
-        }
-
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl(properties.getProperty("db.url"));
-        config.setUsername(properties.getProperty("db.user"));
-        config.setPassword(properties.getProperty("db.password"));
-        config.setDriverClassName(properties.getProperty("db.driver"));
-        config.setMaximumPoolSize(Integer.parseInt(properties.getProperty("db.hikari.pool-size")));
-
-        DataSource dataSource = new HikariDataSource(config);
-
+    public passwordBlackListDBImpl(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 

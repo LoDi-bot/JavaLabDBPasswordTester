@@ -13,6 +13,19 @@
     </bean>
 
     <bean id="passwordBlackListDB" class="passwordBlackListDBImpl">
+        <constructor-arg name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+        <constructor-arg name="configuration" ref="configuration"/>
+    </bean>
+
+    <bean id="configuration" class="com.zaxxer.hikari.HikariConfig">
+        <property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/javalab-passwords"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="Asadullin2003"/>
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="maximumPoolSize" value="20"/>
     </bean>
 
 </beans>
